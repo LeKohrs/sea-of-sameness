@@ -109,7 +109,10 @@
                 },
                 pieId: '0',
                 pieCounter: 0,
-                inPlay: false
+                inPlay: false,
+                lockWord: false,
+                lockedId: '0',
+                playingGame: false
             }
         },
         created: function() {
@@ -120,14 +123,26 @@
             this.$root.controlTimerInterval;
 
             var socket = io('http://10.242.149.187:3000/');
+            console.log(this.playingGame)
             socket.on('tagid', function(id) {
                 self.pieId = id;
-                if(self.inPlay) {
+                console.log(self.inPlay)
+                console.log(self.lockedId)
+                console.log(self.pieId)
+                console.log(self.lockWord)
+                
+                if(self.lockedId !== self.pieId && self.playingGame) {
+                    self.lockWord = false
+                    self.inPlay = true
+                }
+
+                if(self.inPlay && !self.lockWord && self.playingGame) {
                     if(self.pieCounter === 10) {
-                        console.log(self.pieId)
                         self.inPlay = false 
                         self.pieCounter = 0
-                        self.selectCatagory(self.pieId);    
+                        self.lockWord = true
+                        self.lockedId = self.pieId
+                        self.selectCatagory(self.pieId)  
                     } else {
                         console.log('wait for it')
                         self.pieCounter++
@@ -167,7 +182,8 @@
                 clearInterval(self.$root.controlTimerInterval);
             },
             playGame: function() {
-               this.inPlay = true
+               this.playingGame = true
+               console.log(this.playingGame)
             },
             selectedButton: function(event) {
                 var controlPanel = document.getElementsByClassName('controls')[0];
