@@ -428,6 +428,10 @@
         font-stretch: normal;
         unicode-range: U+0020-02DC;
     }
+    * {
+        margin: 0;
+        padding: 0;
+    }
    html {
         overflow: hidden;
     }
@@ -508,7 +512,7 @@
             }
             .counter {
                 position: absolute;
-                // top: 50%;
+                top: 50%;
                 left: 50%;
                 font-size: 225px;
                 color: $site-white;
@@ -539,7 +543,7 @@
                 }
                 h2 {
                     position: absolute;
-                    top: 88px;
+                    top: 119px;
                     left: 266px;
                     font-family: 'DIN Alternate';
                     font-size: 44px;
@@ -561,11 +565,11 @@
 
                 h2 {
                     position:relative;
-                    top: 29%;
+                    top: 50%;
                     font-family: 'DIN Alternate', sans-serif;
                     font-size: 104px;
                     color: $site-gray;
-                    transform: translateY(-83%);
+                    transform: translateY(-55%);
                 }
                 svg {
                     position: absolute;
@@ -610,12 +614,6 @@
                     .card {
                         width: calc(100%/16);
                         font-size: 100px;
-
-                         div {
-                            p {
-                                transform: translateY(-30%) scaleX(-1);
-                            }
-                        }
                     }
                 }
 
@@ -623,15 +621,10 @@
                     .card {
                         width: calc(100%/12);
                         font-size: 125px;
-
-                        div {
-                            p {
-                                transform: translateY(-50%) scaleX(-1);
-                            }
-                        }
                     }
                 }
                 .card {
+                    position: relative;
                     margin: 0 5px;
                     width: 180px;
                     height: 250px;
@@ -660,9 +653,10 @@
                         &.card-back {
                             background: $site-gray;
                         }
-                        p {                            
+                        p {         
+                            position: absolute;                   
                             top: 50%;
-                            transform: translateY(-57%) scaleX(-1);
+                            transform: translate(-50%, -50%) scaleX(-1);
 
                             &.over10 {
                                 font-size: 100px;
