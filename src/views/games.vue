@@ -55,9 +55,9 @@
             </div>
             <div class="phrase-container"></div>
         </section>
-        <img class="wave wave--back" src="/src/assets/img/wave-level3.png" />
-        <img class="wave wave--middle" src="/src/assets/img/wave-level2.png" />
-        <img class="wave wave--front" src="/src/assets/img/wave-level1.png" />
+        <img class="wave wave--back" src="../assets/img/wave-level3.png" />
+        <img class="wave wave--middle" src="../assets/img/wave-level2.png" />
+        <img class="wave wave--front" src="../assets/img/wave-level1.png" />
     </div>
 </template>
 
@@ -558,7 +558,7 @@
                 width: 250px;
                 height: 250px;
                 text-align: center;
-                background-image: url('/src/assets/img/timer-shadow.png');
+                background-image: url('../assets/img/timer-shadow.png');
                 background-repeat: no-repeat;
                 background-position: 50% 50%;
                 background-size: contain;
@@ -656,6 +656,7 @@
                         p {         
                             position: absolute;                   
                             top: 50%;
+                            left: 50%;
                             transform: translate(-50%, -50%) scaleX(-1);
 
                             &.over10 {
