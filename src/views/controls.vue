@@ -21,9 +21,9 @@
                 </ul>
             </div>
             <div class="controls__catagories">
-                <h2>Categories</h2>
+                <h2>Get Catagory</h2>
                 <ul>
-                    <li v-for="(catagory, index) in controls.catagories" @click="selectedButton" :class="catagory.buttonClass" class="controller-button" :key="`${index}`">
+                    <li v-for="(catagory, index) in controls.catagories" @click="playGame" :class="catagory.buttonClass" class="controller-button" :key="`${index}`">
                         <p>
                             {{catagory.text}}
                         </p>
@@ -81,16 +81,8 @@
                     ],
                     catagories: [
                         {
-                            text: 'Messaging',
-                            buttonClass: 'button--messaging'
-                        },
-                        {
-                            text: 'Photography',
-                            buttonClass: 'button--photography'
-                        },
-                        {
-                            text: 'Graphic Elements',
-                            buttonClass: 'button--elements'
+                            text: 'Play Game',
+                            buttonClass: 'button--play'
                         }
                     ],
                     controls: [
@@ -115,7 +107,9 @@
                         messaging: ["compassion","trust","expertise","healing","confidence","care","innovation","technology","leadership","state-of-the-art","close to home","commitment","we are passionate","we care","we are about healing","community","family of healing","legacy of excellence","passion for healing","advanced medicine"]
                     }
                 },
-                pieId: '0'
+                pieId: '0',
+                pieCounter: 0,
+                inPlay: false
             }
         },
         created: function() {
@@ -124,15 +118,22 @@
             this.$root.usedPhotographyWords = [];
             this.$root.usedElementWords = [];
             this.$root.controlTimerInterval;
-            // var socket = io('http://10.242.149.187:3000/');
 
-
-            // let tag = document.getElementById("tag");
-            //     console.log(tag);
-            //     socket.on('tagid', function(id) {
-            //     console.log('tag: ' + id);
-            //     this.pieId = id;
-            // });
+            var socket = io('http://10.242.149.187:3000/');
+            socket.on('tagid', function(id) {
+                self.pieId = id;
+                if(self.inPlay) {
+                    if(self.pieCounter === 10) {
+                        console.log(self.pieId)
+                        self.inPlay = false 
+                        self.pieCounter = 0
+                        self.selectCatagory(self.pieId);    
+                    } else {
+                        console.log('wait for it')
+                        self.pieCounter++
+                    }
+                }
+            });
 
             window.addEventListener('message',function(event) {
                 let correctButton = document.getElementsByClassName('button--correct')[0];
@@ -164,6 +165,9 @@
             stopControlTimer: function() {
                 let self = this;
                 clearInterval(self.$root.controlTimerInterval);
+            },
+            playGame: function() {
+               this.inPlay = true
             },
             selectedButton: function(event) {
                 var controlPanel = document.getElementsByClassName('controls')[0];
@@ -250,7 +254,7 @@
                 let currentWord = document.getElementsByClassName('controls__current-word')[0];
                 let correctButton = document.getElementsByClassName('button--correct')[0];
 
-                if (e.classList.contains('button--messaging')) {
+                if (e === '136436197109' || e === '1364813915' || e === '13642177212' || e === '1364217239186' || e === '1364222208130' || e === '1364135161170') {
                     self.controllerRestart();
                     wordCheck();
 
@@ -283,7 +287,7 @@
                         word = words[Math.floor(Math.random()*words.length)];
                     }
                 }
-                else if(e.classList.contains('button--photography')) {
+                else if(e === '13648245243' || e === '136482126160' || e === '136453124197' || e === '136434198104') {
                     self.controllerRestart();
                     wordCheck();
 
@@ -315,7 +319,7 @@
                         word = words[Math.floor(Math.random()*words.length)];
                     }
                 }
-                else if(e.classList.contains('button--elements')) {
+                else if(e === '13641654924' || e === '13647442236' || e === '487114163218' || e === '136410242192') {
                     self.controllerRestart();
                     wordCheck();
 
