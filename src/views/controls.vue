@@ -126,10 +126,6 @@
             console.log(this.playingGame)
             socket.on('tagid', function(id) {
                 self.pieId = id;
-                console.log(self.inPlay)
-                console.log(self.lockedId)
-                console.log(self.pieId)
-                console.log(self.lockWord)
                 
                 if(self.lockedId !== self.pieId && self.playingGame) {
                     self.lockWord = false
@@ -137,7 +133,7 @@
                 }
 
                 if(self.inPlay && !self.lockWord && self.playingGame) {
-                    if(self.pieCounter === 10) {
+                    if(self.pieCounter === 15) {
                         self.inPlay = false 
                         self.pieCounter = 0
                         self.lockWord = true
@@ -156,8 +152,8 @@
                 if(event.data === "count down complete") {
                     correctButton.classList.remove('deactivate');
                     correctButton.classList.remove('locked');
+                    self.startControlTimer();
                 }
-                self.startControlTimer();
             });
         },
         methods: {
