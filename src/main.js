@@ -22,7 +22,8 @@ new Vue({
   pipInterval: null,
   timerInterval: null,
   counterInterval: null,
-  controlTimerInterval: null
+  controlTimerInterval: null,
+  gameClock: null
 });
 
 

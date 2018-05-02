@@ -23,6 +23,9 @@
         <section class="counter-container hide">
             <div class="counter-box">
                 <h2 class="counter">5</h2>
+                 <audio class="beep">
+                    <source src="../assets/audio/beep.mp3" type="audio/mpeg">
+                </audio> 
             </div>
         </section>
         <section class="main-game">
@@ -52,6 +55,12 @@
                         <path d="M179.25,16.0099642 C184.989511,19.3236727 186.956013,26.6627576 183.642305,32.4022691 L170.642305,54.9189296 C167.328596,60.6584411 159.989511,62.6249429 154.25,59.3112344 C148.510489,55.9975259 146.543987,48.6584411 149.857695,42.9189296 L162.857695,20.4022691 C166.171404,14.6627576 173.510489,12.6962557 179.25,16.0099642 Z" class="pip" id="pip1"></path>
                     </g>
                 </svg>
+                <audio class="tick-tock">
+                    <source src="../assets/audio/clock-ticking.mp3" type="audio/mpeg">
+                </audio> 
+                 <audio class="aww">
+                    <source src="../assets/audio/aww.mp3" type="audio/mpeg">
+                </audio> 
             </div>
             <div class="phrase-container"></div>
         </section>
@@ -257,18 +266,30 @@
                 clearInterval(self.$root.pipInterval);
             },
             startTimer: function() {
+                let self = this
                 const timerContainer = document.getElementsByClassName('timer-container')[0];
                 let second = '12';
                 let timer = timerContainer.getElementsByTagName('h2')[0];
+                this.$root.playClock = document.getElementsByClassName('tick-tock')[0];
+                this.$root.playClock.play();
                 this.$root.timerInterval = setInterval(function() {
                     if(second > 0) {
                         second--;
                         timer.innerHTML = second;
                     }
+                    else {
+                        self.$root.playClock.pause()
+                        self.$root.playClock.currentTime = 0
+                        let aww = document.getElementsByClassName('aww')[0]
+                        aww.loop = false
+                        aww.play()
+                    }
                 }, 1000);
             },
             stopTimer: function() {
                 let self = this;
+                this.$root.playClock.pause();
+                this.$root.playClock.currentTime = 0;
                 clearInterval(self.$root.timerInterval);
             },
             countdownOverlay: function() {
@@ -276,6 +297,7 @@
                 let waves = document.getElementsByClassName('wave');
                 const mainGame = document.getElementsByClassName('main-game')[0];
                 const counterContainer = document.getElementsByClassName('counter-container')[0];
+                var beep = document.getElementsByClassName('beep')[0];
 
                 for(let wave of waves) {
                     wave.classList.add('blur');
@@ -288,6 +310,7 @@
                 counterContainer.classList.remove('hide');
                 this.$root.counterInterval = setInterval(function() {
                     if(second > 1) {
+                        beep.play();
                         second--;
                         if(second === 3) {
                             counter.innerHTML = 'Ready';

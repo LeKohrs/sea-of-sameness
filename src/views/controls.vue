@@ -122,7 +122,7 @@
             this.$root.usedElementWords = [];
             this.$root.controlTimerInterval;
 
-            var socket = io('http://10.242.149.187:3000/');
+            var socket = io('http://10.242.149.227:3000/');
             console.log(this.playingGame)
             socket.on('tagid', function(id) {
                 self.pieId = id;
@@ -467,6 +467,10 @@
 
             &:hover {
                 transform: scale(1.1);
+            }
+            &:active {
+                 background: radial-gradient(ellipse, $site-orange-dark, $site-orange, $site-orange-light);
+                  transform: scale(1);
             }
 
             &.deactivate {
