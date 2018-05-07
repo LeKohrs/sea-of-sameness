@@ -133,7 +133,7 @@
                 }
 
                 if(self.inPlay && !self.lockWord && self.playingGame) {
-                    if(self.pieCounter === 15) {
+                    if(self.pieCounter === 10) {
                         self.inPlay = false 
                         self.pieCounter = 0
                         self.lockWord = true

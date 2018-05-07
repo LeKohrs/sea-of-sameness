@@ -24,7 +24,7 @@
             <div class="counter-box">
                 <h2 class="counter">5</h2>
                  <audio class="beep">
-                    <source src="../assets/audio/beep.mp3" type="audio/mpeg">
+                    <source src="../assets/audio/clockwork-windup.mp3" type="audio/mpeg">
                 </audio> 
             </div>
         </section>
@@ -58,8 +58,14 @@
                 <audio class="tick-tock">
                     <source src="../assets/audio/clock-ticking.mp3" type="audio/mpeg">
                 </audio> 
-                 <audio class="aww">
-                    <source src="../assets/audio/aww.mp3" type="audio/mpeg">
+                <audio class="aww">
+                    <source src="../assets/audio/son-of-a-biscuit-eater.mp3" type="audio/mpeg">
+                </audio> 
+                <audio class="alarm">
+                    <source src="../assets/audio/alarm-clock.mp3" type="audio/mpeg">
+                </audio> 
+                <audio class="aye">
+                    <source src="../assets/audio/aye-matie.mp3" type="audio/mpeg">
                 </audio> 
             </div>
             <div class="phrase-container"></div>
@@ -280,9 +286,13 @@
                     else {
                         self.$root.playClock.pause()
                         self.$root.playClock.currentTime = 0
-                        let aww = document.getElementsByClassName('aww')[0]
-                        aww.loop = false
-                        aww.play()
+                        let alarm = document.getElementsByClassName('alarm')[0]
+                        alarm.play()
+                        setTimeout(() => {
+                            let aww = document.getElementsByClassName('aww')[0]
+                            aww.play()
+                        }, 1000);
+                        clearInterval(self.$root.timerInterval);
                     }
                 }, 1000);
             },
@@ -361,6 +371,8 @@
                 this.flipCard(l);
                 this.stopPips();
                 this.stopTimer();
+                let aye = document.getElementsByClassName('aye')[0]
+                aye.play()
                 if(counterContainer.classList.contains('hide')) {
 
                 }
