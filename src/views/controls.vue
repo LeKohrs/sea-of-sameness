@@ -122,7 +122,7 @@
             this.$root.usedElementWords = [];
             this.$root.controlTimerInterval;
 
-            var socket = io('http://10.242.149.227:3000/');
+            var socket = io('http://10.242.149.221:3000/');
             console.log(this.playingGame)
             socket.on('tagid', function(id) {
                 self.pieId = id;
@@ -266,7 +266,7 @@
                 let currentWord = document.getElementsByClassName('controls__current-word')[0];
                 let correctButton = document.getElementsByClassName('button--correct')[0];
 
-                if (e === '136436197109' || e === '1364813915' || e === '13642177212' || e === '1364217239186' || e === '1364222208130' || e === '1364135161170') {
+                if (e === '13642177212' || e === '1364217239186' || e === '1364222208130' || e === '136451125194') {
                     self.controllerRestart();
                     wordCheck();
 
@@ -299,7 +299,7 @@
                         word = words[Math.floor(Math.random()*words.length)];
                     }
                 }
-                else if(e === '13648245243' || e === '136482126160' || e === '136453124197' || e === '136434198104') {
+                else if(e === '13648245243' || e === '136482126160' || e === '136434198104') {
                     self.controllerRestart();
                     wordCheck();
 
@@ -331,7 +331,7 @@
                         word = words[Math.floor(Math.random()*words.length)];
                     }
                 }
-                else if(e === '13641654924' || e === '13647442236' || e === '487114163218' || e === '136410242192') {
+                else if(e === '13641654924' || e === '487114163218' || e === '136410242192') {
                     self.controllerRestart();
                     wordCheck();
 
@@ -362,6 +362,19 @@
                         words = self.phrases.catagories.graphicElements;
                         word = words[Math.floor(Math.random()*words.length)];
                     }
+                } 
+                else if (e === '1364813915' || e === '136436197109' || e === '1364135161170' || e === '13647442236' || e === '136453124197') {
+                    self.controllerRestart();
+                    var message = {
+                        type: "Not Happening",
+                        word: 'No Way in Hell',
+                    }
+                    selectedWord.innerHTML = 'No Way in Hell';
+                    wordCatagory.innerHTML = 'Not Happening';
+                    currentWord.classList.remove('hide');
+                    self.$root.gameWindow.postMessage(message, window.location.origin + "/game");
+                    correctButton.classList.add('deactivate');
+                    correctButton.classList.add('locked');
                 }
             },
             toTitleCase: function(str) {
