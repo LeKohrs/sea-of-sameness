@@ -122,7 +122,7 @@
             this.$root.usedElementWords = [];
             this.$root.controlTimerInterval;
 
-            var socket = io('http://10.242.149.221:3000/');
+            var socket = io('http://10.10.51.239:3000/');
             console.log(this.playingGame)
             socket.on('tagid', function(id) {
                 self.pieId = id;
