@@ -104,7 +104,8 @@
                     catagories: {
                         graphicElements: ["Dove","Cross","Heart","Hands","Band-Aid","Lab coat","stethoscope","scrubs","surgical mask","ekg monitor","syringe","medicine","test tube","chart","ribbon","thermometer","lungs","brain","iv bag","bone"],
                         photography: ["arms crossed","consultation","wheel chair","window gazing","comforting patient","gurney","x-ray","surgical mask","life flight","surgery","doctors walking","hand on shoulder","hug","camera aware","testimonial portrait","mri","teddy bear","balloons","flowers","stethoscope","lab work","scrubbing in","physical therapy","cpr","defibrillation"],
-                        messaging: ["compassion","trust","expertise","healing","confidence","care","innovation","technology","leadership","state-of-the-art","close to home","commitment","we are passionate","we care","we are about healing","community","family of healing","legacy of excellence","passion for healing","advanced medicine"]
+                        messaging: ["compassion","trust","expertise","healing","confidence","care","innovation","technology","leadership","state-of-the-art","close to home","commitment","we are passionate","we care","we are about healing","community","family of healing","legacy of excellence","passion for healing","advanced medicine"],
+                        nope: ["You Wish", "No Way in Hell", "Not Happening", "No Free 4 You", "No", "We're too Cheap", "Not for You", "When Pigs Fly", "Just Kidding", "I Think Not"]
                     }
                 },
                 pieId: '0',
@@ -122,7 +123,7 @@
             this.$root.usedElementWords = [];
             this.$root.controlTimerInterval;
 
-            var socket = io('http://10.10.51.239:3000/');
+            var socket = io('http://10.10.51.76:3000/');
             console.log(this.playingGame)
             socket.on('tagid', function(id) {
                 self.pieId = id;
@@ -364,17 +365,47 @@
                     }
                 } 
                 else if (e === '1364813915' || e === '136436197109' || e === '1364135161170' || e === '13647442236' || e === '136453124197') {
+                    // self.controllerRestart();
+                    // var message = {
+                    //     type: "You Wish",
+                    //     word: 'No Way in Hell',
+                    // }
+                    // selectedWord.innerHTML = 'No Way in Hell';
+                    // wordCatagory.innerHTML = 'Not Happening';
+                    // currentWord.classList.remove('hide');
+                    // self.$root.gameWindow.postMessage(message, window.location.origin + "/game");
+                    // correctButton.classList.add('deactivate');
+                    // correctButton.classList.add('locked');
                     self.controllerRestart();
-                    var message = {
-                        type: "Not Happening",
-                        word: 'No Way in Hell',
+                    wordCheck();
+
+                    if(self.$root.usedElementWords.length > 18) {
+                        self.$root.usedElementWords = [];
                     }
-                    selectedWord.innerHTML = 'No Way in Hell';
-                    wordCatagory.innerHTML = 'Not Happening';
+                    self.$root.usedElementWords.push(word);
+                    var message = {
+                        type: "Free Thing?",
+                        word: word,
+                    }
+                    selectedWord.innerHTML = self.toTitleCase(message.word);
+                    wordCatagory.innerHTML = self.toTitleCase(message.type);
                     currentWord.classList.remove('hide');
                     self.$root.gameWindow.postMessage(message, window.location.origin + "/game");
                     correctButton.classList.add('deactivate');
                     correctButton.classList.add('locked');
+
+                    function wordCheck() {
+                        getWord();
+                        for(let usedWord of self.$root.usedElementWords) {
+                            if(word === usedWord) {
+                                wordCheck();
+                            }
+                        }
+                    }
+                    function getWord() {
+                        words = self.phrases.catagories.nope;
+                        word = words[Math.floor(Math.random()*words.length)];
+                    }
                 }
             },
             toTitleCase: function(str) {
